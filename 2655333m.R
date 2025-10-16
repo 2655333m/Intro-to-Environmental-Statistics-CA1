@@ -22,7 +22,7 @@ sd(bleach$Percent_Bleaching)
 #Boxplot (Square-Root scale for skew correction)
 ggplot(bleach, aes(x = Ocean_Name, y = Percent_Bleaching, fill = Ocean_Name)) +
   geom_boxplot(alpha = 0.8, width = 0.6, outlier.shape = 21, outlier.fill = "white") +
-  scale_y_continuous(trans = "sqrt",  # better view for skewed data
+  scale_y_continuous(trans = "sqrt",  
                      breaks = c(0, 1, 5, 10, 25, 50, 100)) +
   labs(title = "Coral Bleaching by Ocean Basin",
        x = "Ocean Basin",
@@ -50,7 +50,7 @@ ggplot(bleach, aes(x = Percent_Bleaching)) +
   theme_minimal(base_size = 13) +
   theme(
     plot.title = element_text(face = "bold", hjust = 0.5),
-    axis.line = element_line(colour = "black", linewidth = 0.5), # add clean black axis lines
+    axis.line = element_line(colour = "black", linewidth = 0.5),
   )
 
 #Log10 Transformed Histogram
@@ -96,7 +96,7 @@ wilcox.test(Percent_Bleaching ~ Ocean_Name, data= bleach)
 leveneTest(Percent_Bleaching ~ Ocean_Name, data = bleach)
 
 #Compare median bleaching 
-tapply(bleach$Percent_Bleaching, bleach$Ocean_Name, median, na.rm= TRUE)alues per Ocean
+tapply(bleach$Percent_Bleaching, bleach$Ocean_Name, median, na.rm= TRUE)
 
 dev.off()
 
