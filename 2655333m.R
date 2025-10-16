@@ -19,7 +19,7 @@ bleach <- na.omit(bleach_subset)
 summary(bleach$Percent_Bleaching)
 sd(bleach$Percent_Bleaching)
 
-#Boxplot
+#Boxplot (Square-Root scale for skew correction)
 ggplot(bleach, aes(x = Ocean_Name, y = Percent_Bleaching, fill = Ocean_Name)) +
   geom_boxplot(alpha = 0.8, width = 0.6, outlier.shape = 21, outlier.fill = "white") +
   scale_y_continuous(trans = "sqrt",  # better view for skewed data
@@ -32,11 +32,11 @@ ggplot(bleach, aes(x = Ocean_Name, y = Percent_Bleaching, fill = Ocean_Name)) +
   theme(legend.position = "none",
         plot.title = element_text(face = "bold", hjust = 0.5))
 
-#Q-Q Plot
+#Q-Q Plot of untransformed
 qqnorm(bleach$Percent_Bleaching)
 qqline(bleach$Percent_Bleaching, col="red")
 
-# Log-transform Q–Q plot
+# Log-transform Q–Q plot 
 qqnorm(log10(bleach$Percent_Bleaching + 1),
        main = "Log Q–Q Plot of Percent Bleaching (+1 adjusted)")
 qqline(log10(bleach$Percent_Bleaching + 1),
@@ -53,7 +53,7 @@ ggplot(bleach, aes(x = Percent_Bleaching)) +
     axis.line = element_line(colour = "black", linewidth = 0.5), # add clean black axis lines
   )
 
-#Transform histogram to be more normal
+#Log10 Transformed Histogram
 ggplot(bleach, aes(x = log10(Percent_Bleaching + 1))) +
   geom_histogram(bins = 30, fill = "blue", color = "white") +
   labs(
@@ -69,6 +69,7 @@ ggplot(bleach, aes(x = log10(Percent_Bleaching + 1))) +
     panel.grid.minor = element_blank()
   )
 
+#Square-Root Transformed Histogram
 ggplot(bleach, aes(x = sqrt(Percent_Bleaching + 1))) +
   geom_histogram(bins = 30, fill = "blue", color = "white") +
   labs(
@@ -94,8 +95,8 @@ wilcox.test(Percent_Bleaching ~ Ocean_Name, data= bleach)
 # Test for homogeneity of variance
 leveneTest(Percent_Bleaching ~ Ocean_Name, data = bleach)
 
-#Compare median bleaching values per Ocean
-tapply(bleach$Percent_Bleaching, bleach$Ocean_Name, median, na.rm= TRUE)
+#Compare median bleaching 
+tapply(bleach$Percent_Bleaching, bleach$Ocean_Name, median, na.rm= TRUE)alues per Ocean
 
 dev.off()
 
