@@ -95,7 +95,7 @@ wilcox.test(Percent_Bleaching ~ Ocean_Name, data= bleach)
 leveneTest(Percent_Bleaching ~ Ocean_Name, data = bleach)
 
 #Compare median bleaching values per Ocean
-
+tapply(bleach$Percent_Bleaching, bleach$Ocean_Name, median, na.rm= TRUE)
 
 dev.off()
 
